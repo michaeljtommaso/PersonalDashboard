@@ -1,0 +1,160 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-05-19T00:00:00.000Z",
+  "title": "Design System: Summer OS 2026",
+  "extensions": {
+    "colorMeta": {
+      "bg-deep":         { "role": "neutral",   "displayName": "Deep Navy",      "canonical": "#0f1117", "tonalRamp": ["#0f1117","#141720","#1a1d2e","#1e2235","#252a40","#2f3554","#3d4470","#4e578f"] },
+      "bg-surface":      { "role": "neutral",   "displayName": "Surface Navy",   "canonical": "#1a1d2e", "tonalRamp": ["#0f1117","#141720","#1a1d2e","#1e2235","#252a40","#2f3554","#3d4470","#4e578f"] },
+      "bg-card":         { "role": "neutral",   "displayName": "Card Navy",      "canonical": "#1e2235", "tonalRamp": ["#0f1117","#141720","#1a1d2e","#1e2235","#252a40","#2f3554","#3d4470","#4e578f"] },
+      "accent-health":   { "role": "primary",   "displayName": "Emerald Health", "canonical": "#10b981", "tonalRamp": ["#064e3b","#065f46","#047857","#059669","#10b981","#34d399","#6ee7b7","#a7f3d0"] },
+      "accent-business": { "role": "secondary", "displayName": "Amber Business", "canonical": "#f59e0b", "tonalRamp": ["#78350f","#92400e","#b45309","#d97706","#f59e0b","#fbbf24","#fcd34d","#fde68a"] },
+      "accent-academic": { "role": "tertiary",  "displayName": "Academic Blue",  "canonical": "#3b82f6", "tonalRamp": ["#1e3a8a","#1e40af","#1d4ed8","#2563eb","#3b82f6","#60a5fa","#93c5fd","#bfdbfe"] },
+      "accent-ai":       { "role": "primary",   "displayName": "AI Purple",      "canonical": "#8b5cf6", "tonalRamp": ["#3b0764","#4c1d95","#5b21b6","#6d28d9","#7c3aed","#8b5cf6","#a78bfa","#c4b5fd"] },
+      "accent-brain":    { "role": "secondary", "displayName": "Brain Cyan",     "canonical": "#06b6d4", "tonalRamp": ["#083344","#0e4f5e","#0e7490","#0891b2","#06b6d4","#22d3ee","#67e8f9","#a5f3fc"] },
+      "text-primary":    { "role": "neutral",   "displayName": "Primary Text",   "canonical": "#f1f5f9", "tonalRamp": ["#64748b","#94a3b8","#cbd5e1","#e2e8f0","#f1f5f9","#f8fafc","#ffffff","#ffffff"] },
+      "text-secondary":  { "role": "neutral",   "displayName": "Secondary Text", "canonical": "#94a3b8", "tonalRamp": ["#334155","#475569","#64748b","#94a3b8","#cbd5e1","#e2e8f0","#f1f5f9","#f8fafc"] }
+    },
+    "typographyMeta": {
+      "display":  { "displayName": "Display",  "purpose": "Hero metric numbers — revenue, calories, countdown. One per section. Full accent color + glow text-shadow." },
+      "headline": { "displayName": "Headline", "purpose": "Section titles, major card headers. Scramble-reveals on mount via Anime.js scrambleText." },
+      "title":    { "displayName": "Title",    "purpose": "Tab labels, venture names, agent names." },
+      "body":     { "displayName": "Body",     "purpose": "Log entries, descriptions, notes. Max 65ch." },
+      "label":    { "displayName": "Label",    "purpose": "Timestamps, status badges, metadata. Uppercase for chips." }
+    },
+    "shadows": [
+      { "name": "glow-health",   "value": "0 0 20px #10b981", "purpose": "text-shadow on display-scale health metrics." },
+      { "name": "glow-business", "value": "0 0 20px #f59e0b", "purpose": "text-shadow on display-scale revenue numbers." },
+      { "name": "glow-academic", "value": "0 0 20px #3b82f6", "purpose": "text-shadow on display-scale study metrics." },
+      { "name": "glow-ai",       "value": "0 0 20px #8b5cf6", "purpose": "text-shadow on display-scale AI metrics. Also box-shadow on active agent cards via glow-breathe keyframe." },
+      { "name": "glow-brain",    "value": "0 0 20px #06b6d4", "purpose": "text-shadow on display-scale brain metrics." },
+      { "name": "focus-ring",    "value": "0 0 0 2px rgba(accent, 0.4)", "purpose": "Input focus. Color is the section accent." }
+    ],
+    "motion": [
+      { "name": "ease-out-quart",    "value": "cubic-bezier(0.25, 1, 0.5, 1)",   "purpose": "All Anime.js animated entrances. Cards, progress bars, rings, section transitions." },
+      { "name": "spring-count-up",   "value": "stiffness: 80, damping: 15",       "purpose": "Anime.js spring easing for count-up numbers. Settles without overshoot." },
+      { "name": "section-enter",     "value": "250ms ease-out-quart",             "purpose": "Incoming section: translateY(16px) → 0, opacity 0 → 1." },
+      { "name": "section-exit",      "value": "150ms ease-out",                   "purpose": "Outgoing section: opacity 1 → 0." },
+      { "name": "card-stagger",      "value": "60ms between items",               "purpose": "Anime.js stagger() delay between card entrances." },
+      { "name": "count-up",          "value": "900ms spring",                     "purpose": "All numeric stat values count from 0 to target on mount." },
+      { "name": "progress-bar",      "value": "600ms ease-out-quart",             "purpose": "Progress bar width 0 → actual value on mount." },
+      { "name": "ring-draw",         "value": "800ms ease-out-quart",             "purpose": "SVG createDrawable stroke animation for agent and topic rings." },
+      { "name": "log-entry",         "value": "200ms ease-out-quart",             "purpose": "Activity log entries translate in from bottom." },
+      { "name": "glow-breathe",      "value": "2s infinite (Active), 3s (Testing)", "purpose": "CSS @keyframes box-shadow oscillation on agent cards." }
+    ],
+    "breakpoints": [
+      { "name": "sidebar-collapse", "value": "900px",  "purpose": "Sidebar collapses to icon-only below this width." },
+      { "name": "particle-reduce",  "value": "1200px", "purpose": "Particle count drops from 90 to 50 below this width." }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Main form submit. White fill, near-black text.",
+      "html": "<button class=\"ds-btn-primary\">Log Entry</button>",
+      "css": ".ds-btn-primary { background: #f1f5f9; color: #0f1117; padding: 10px 20px; border-radius: 12px; font-size: 0.875rem; font-weight: 500; border: none; cursor: pointer; transition: background 150ms, transform 150ms; font-family: 'Geist', system-ui, sans-serif; } .ds-btn-primary:hover { background: #3b82f6; color: #f1f5f9; transform: translateY(-1px); } .ds-btn-primary:focus-visible { outline: none; box-shadow: 0 0 0 2px rgba(59,130,246,0.5); }"
+    },
+    {
+      "name": "Ghost Button",
+      "kind": "button",
+      "refersTo": "button-ghost",
+      "description": "Secondary actions. Transparent background.",
+      "html": "<button class=\"ds-btn-ghost\">Cancel</button>",
+      "css": ".ds-btn-ghost { background: transparent; color: #94a3b8; padding: 10px 20px; border-radius: 12px; font-size: 0.875rem; font-weight: 500; border: none; cursor: pointer; transition: color 150ms; font-family: 'Geist', system-ui, sans-serif; } .ds-btn-ghost:hover { color: #f1f5f9; }"
+    },
+    {
+      "name": "Stat Card (Health)",
+      "kind": "card",
+      "refersTo": "stat-card",
+      "description": "Emerald-tinted stat card. Every section has a tinted variant; this shows the Health color.",
+      "html": "<div class=\"ds-stat-card-health\"><p class=\"ds-stat-label\">Calories Today</p><p class=\"ds-stat-value\">2,840</p><p class=\"ds-stat-sub\">218g protein</p></div>",
+      "css": ".ds-stat-card-health { background: rgba(16,185,129,0.14); border-radius: 12px; border-top: 3px solid #10b981; padding: 20px 24px; font-family: 'Geist', system-ui, sans-serif; } .ds-stat-label { font-size: 0.75rem; font-weight: 500; letter-spacing: 0.04em; text-transform: uppercase; color: #94a3b8; margin: 0 0 8px 0; } .ds-stat-value { font-size: clamp(1.75rem, 4vw, 2.5rem); font-weight: 700; line-height: 1.1; letter-spacing: -0.02em; color: #10b981; text-shadow: 0 0 20px #10b981; margin: 0 0 4px 0; } .ds-stat-sub { font-size: 0.75rem; color: #94a3b8; margin: 0; } .ds-stat-card-health:hover { transform: translateY(-2px); }"
+    },
+    {
+      "name": "Stat Card (Business)",
+      "kind": "card",
+      "refersTo": "stat-card",
+      "description": "Amber-tinted stat card for Business section metrics.",
+      "html": "<div class=\"ds-stat-card-business\"><p class=\"ds-stat-label-b\">Summer Revenue</p><p class=\"ds-stat-value-b\">$12,400</p></div>",
+      "css": ".ds-stat-card-business { background: rgba(245,158,11,0.14); border-radius: 12px; border-top: 3px solid #f59e0b; padding: 20px 24px; font-family: 'Geist', system-ui, sans-serif; } .ds-stat-label-b { font-size: 0.75rem; font-weight: 500; letter-spacing: 0.04em; text-transform: uppercase; color: #94a3b8; margin: 0 0 8px 0; } .ds-stat-value-b { font-size: clamp(1.75rem, 4vw, 2.5rem); font-weight: 700; line-height: 1.1; letter-spacing: -0.02em; color: #f59e0b; text-shadow: 0 0 20px #f59e0b; margin: 0; } .ds-stat-card-business:hover { transform: translateY(-2px); }"
+    },
+    {
+      "name": "Sidebar Nav Item (Active)",
+      "kind": "nav",
+      "refersTo": "sidebar-nav-item-active",
+      "description": "Active nav item: full accent background tint, icon and label in solid accent. No side-stripe border.",
+      "html": "<button class=\"ds-nav-active\"><svg class=\"ds-nav-icon\" width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><path d=\"M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2V9M9 21H5a2 2 0 0 1-2-2V9m0 0h18\"/></svg><span>Health Hub</span></button>",
+      "css": ".ds-nav-active { display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 6px; background: rgba(16,185,129,0.25); border: none; cursor: pointer; width: 100%; font-family: 'Geist', system-ui, sans-serif; font-size: 0.875rem; font-weight: 500; color: #10b981; transition: all 150ms; } .ds-nav-icon { color: #10b981; filter: drop-shadow(0 0 6px #10b981); flex-shrink: 0; } .ds-nav-active:hover { background: rgba(16,185,129,0.3); }"
+    },
+    {
+      "name": "Text Input",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "Standard text input. Focus glow uses the section accent.",
+      "html": "<div class=\"ds-field\"><label class=\"ds-label\">Agent Name</label><input class=\"ds-input\" type=\"text\" placeholder=\"e.g. Lead Qualifier v2\" /></div>",
+      "css": ".ds-field { display: flex; flex-direction: column; gap: 6px; } .ds-label { font-size: 0.75rem; font-weight: 500; letter-spacing: 0.04em; color: #94a3b8; font-family: 'Geist', system-ui, sans-serif; } .ds-input { background: #1e2235; border: 1px solid rgba(148,163,184,0.3); border-radius: 12px; color: #f1f5f9; font-size: 0.875rem; padding: 8px 12px; outline: none; transition: border-color 150ms, box-shadow 150ms; font-family: 'Geist', system-ui, sans-serif; } .ds-input:focus { border-color: #8b5cf6; box-shadow: 0 0 0 2px rgba(139,92,246,0.4); } .ds-input::placeholder { color: #94a3b8; }"
+    },
+    {
+      "name": "Agent Card (Active)",
+      "kind": "custom",
+      "refersTo": "agent-card",
+      "description": "Live agent card. Three columns: SVG ring / content / activity log. Purple glow-breathe on Active status.",
+      "html": "<div class=\"ds-agent-card\"><div class=\"ds-agent-ring-col\"><svg class=\"ds-ring-svg\" viewBox=\"0 0 120 120\"><circle class=\"ds-ring-track\" cx=\"60\" cy=\"60\" r=\"50\"/><circle class=\"ds-ring-fill\" cx=\"60\" cy=\"60\" r=\"50\" stroke-dasharray=\"220\" stroke-dashoffset=\"66\"/></svg><span class=\"ds-agent-status\">ACTIVE</span></div><div class=\"ds-agent-content\"><p class=\"ds-agent-name\">Lead Qualifier v2</p><p class=\"ds-agent-purpose\">Screens inbound leads against ICP, scores and routes.</p><p class=\"ds-agent-venture\">SaaS Venture</p><div class=\"ds-task-count\">3/7 complete</div></div><div class=\"ds-agent-log\"><div class=\"ds-log-entry\"><span class=\"ds-log-ts\">14:32</span><span class=\"ds-log-text\">Scored lead #48 — 82/100</span></div><div class=\"ds-log-entry\"><span class=\"ds-log-ts\">14:28</span><span class=\"ds-log-text\">Routed 3 leads to outreach</span></div><div class=\"ds-log-cursor\">|</div></div></div>",
+      "css": ".ds-agent-card { background: rgba(139,92,246,0.25); border-radius: 12px; border-top: 3px solid #8b5cf6; padding: 20px; display: grid; grid-template-columns: 120px 1fr 1fr; gap: 20px; font-family: 'Geist', system-ui, sans-serif; animation: ds-glow-breathe 2s ease-in-out infinite; } @keyframes ds-glow-breathe { 0%,100% { box-shadow: 0 0 8px rgba(139,92,246,0.3); } 50% { box-shadow: 0 0 24px rgba(139,92,246,0.6); } } .ds-ring-svg { width: 120px; height: 120px; transform: rotate(-90deg); } .ds-ring-track { fill: none; stroke: rgba(139,92,246,0.2); stroke-width: 8; } .ds-ring-fill { fill: none; stroke: #8b5cf6; stroke-width: 8; stroke-linecap: round; transition: stroke-dashoffset 0.8s cubic-bezier(0.25,1,0.5,1); } .ds-agent-ring-col { display: flex; flex-direction: column; align-items: center; gap: 8px; } .ds-agent-status { font-size: 0.65rem; font-weight: 500; letter-spacing: 0.1em; color: #8b5cf6; } .ds-agent-name { font-size: 1rem; font-weight: 500; color: #f1f5f9; margin: 0 0 4px 0; } .ds-agent-purpose { font-size: 0.8rem; color: #94a3b8; margin: 0 0 4px 0; line-height: 1.5; } .ds-agent-venture { font-size: 0.75rem; color: #8b5cf6; margin: 0 0 8px 0; } .ds-task-count { font-size: 0.75rem; font-weight: 500; color: #8b5cf6; } .ds-agent-log { background: #0f1117; border-radius: 8px; padding: 10px 12px; overflow-y: auto; max-height: 160px; display: flex; flex-direction: column; gap: 6px; } .ds-log-entry { display: flex; gap: 8px; } .ds-log-ts { font-size: 0.7rem; color: #475569; flex-shrink: 0; } .ds-log-text { font-size: 0.75rem; color: #94a3b8; } .ds-log-cursor { font-size: 0.75rem; color: #8b5cf6; animation: ds-blink 1s step-end infinite; } @keyframes ds-blink { 0%,100% { opacity: 1; } 50% { opacity: 0; } }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Operator's Control Room — Live",
+    "overview": "This is a dark, high-information environment for someone who knows exactly what they're doing — and now, it moves. Every screen is a command surface with real-time presence: numbers count up, a particle field drifts behind everything, agent rings pulse when work is in flight. The design earns trust through precision and motion together.\n\nThe five section accents (emerald, amber, blue, purple, cyan) are now used at full palette depth. Each accent appears at three intensities: a 0.14 opacity background tint on cards (dim), 0.25 opacity on hover and active states (mid), and solid on key metrics and glowing indicators (full).\n\nLayout is full-bleed. Content fills the viewport after the sidebar. On a wide monitor, sections render two- or three-column layouts instead of a single narrow column.",
+    "keyCharacteristics": [
+      "Five section identities unified by a single dark base, each vivid at three tiers of intensity",
+      "Particle field background: drifting neural network, always present, never distracting",
+      "Anime.js animation throughout: count-up numbers, scramble reveals, staggered entrances, SVG rings",
+      "Agent Tracker as live command center: animated completion rings, scrollable activity logs, task checklists",
+      "Full-bleed layout; sections own their grids with no global centering constraint",
+      "Flat tonal layering (no shadows), depth through background steps",
+      "No gradients on card backgrounds; no gradient text"
+    ],
+    "rules": [
+      { "name": "The Full-Palette Rule", "body": "Each section accent operates at three intensities, not one. A card tinted at 0.14 opacity, a hover state at 0.25, and a glowing metric number at full saturation is the minimum expression for any section.", "section": "colors" },
+      { "name": "The Five-and-None Rule", "body": "The five section accents are reserved for their section. Accent colors do not cross section boundaries.", "section": "colors" },
+      { "name": "The No-Gradient Rule", "body": "Gradients are forbidden on text, card backgrounds, and section headers. Solid low-opacity tints only on cards.", "section": "colors" },
+      { "name": "The Weight Gap Rule", "body": "Display is 700; headline is 600; everything below is 400-500. Each step is felt, not calculated.", "section": "typography" },
+      { "name": "The Scramble Rule", "body": "Section titles and agent names scramble-reveal via Anime.js scrambleText on mount. Body copy, labels, and metadata do not scramble.", "section": "typography" },
+      { "name": "The Flat-By-Default Rule", "body": "Nothing casts a shadow at rest. The only box-shadows are focus rings on inputs and the glow-breathe on Active agents — status, not depth.", "section": "elevation" },
+      { "name": "The Move-Not-Light Rule", "body": "Hover feedback is translateY(-2px). The surface moves; it does not illuminate.", "section": "elevation" },
+      { "name": "The No-Side-Stripe Rule", "body": "border-left or border-right greater than 1px as a colored accent stripe is prohibited on all surfaces. Active states use background fills, not left borders.", "section": "components" }
+    ],
+    "dos": [
+      "Do use the three-tier accent system on every card: 0.14 tint at rest, 0.25 on hover/active, solid on key metrics.",
+      "Do animate every numeric stat on section mount via Anime.js spring count-up.",
+      "Do use scrambleText for section headlines and agent names on mount.",
+      "Do use createDrawable for all SVG ring animations.",
+      "Do use stagger() with 60ms delay between cards for all list and grid entrances.",
+      "Do use full-bleed layout within each section. No max-w-5xl or centering wrappers.",
+      "Do use rgba(accent, 0.25) full background fills on active sidebar items with the icon in solid accent.",
+      "Do apply text-shadow: 0 0 20px <accent> to display-scale metric numbers.",
+      "Do apply filter: drop-shadow(0 0 12px <accent>) to section header icons.",
+      "Do make Active agents visually unmistakable: pulsing ring, blinking cursor, 0.25 card fill.",
+      "Do use transform: translateY(-2px) as the universal hover lift.",
+      "Do show real data density."
+    ],
+    "donts": [
+      "Don't use border-left or border-right greater than 1px as a colored accent stripe on any surface.",
+      "Don't build generic SaaS dashboards with hero-metric templates inside gradient cards.",
+      "Don't use gradient text (background-clip: text with a gradient).",
+      "Don't use gradients on card backgrounds.",
+      "Don't use the terminal aesthetic as personality: no green-on-black, no monospace-as-personality.",
+      "Don't use Notion-clone whitespace.",
+      "Don't let section accent colors bleed across sections.",
+      "Don't add shadows at rest.",
+      "Don't nest cards inside cards.",
+      "Don't animate CSS layout properties that trigger reflow.",
+      "Don't use bounce or elastic easing.",
+      "Don't scramble body copy, labels, or metadata.",
+      "Don't constrain the layout with a global max-width."
+    ]
+  }
+}
