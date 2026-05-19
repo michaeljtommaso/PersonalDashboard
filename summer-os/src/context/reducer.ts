@@ -1,4 +1,4 @@
-import type { AppState, AppAction, Venture, Topic } from './types';
+import type { AppState, AppAction, Venture, Topic, Agent } from './types';
 
 const DEFAULT_VENTURES: Venture[] = [
   {
@@ -68,6 +68,14 @@ export const DEFAULT_STATE: AppState = {
     notes: [],
   },
 };
+
+function migrateAgent(agent: Agent): Agent {
+  return {
+    tasks: [],
+    logs: [],
+    ...agent,
+  };
+}
 
 export function reducer(state: AppState, action: AppAction): AppState {
   switch (action.type) {
@@ -220,7 +228,7 @@ export function reducer(state: AppState, action: AppAction): AppState {
     case 'ADD_AGENT':
       return {
         ...state,
-        ai: { ...state.ai, agents: [...state.ai.agents, action.agent] },
+        ai: { ...state.ai, agents: [...state.ai.agents, migrateAgent(action.agent)] },
       };
 
     case 'UPDATE_AGENT':
@@ -229,7 +237,7 @@ export function reducer(state: AppState, action: AppAction): AppState {
         ai: {
           ...state.ai,
           agents: state.ai.agents.map(a =>
-            a.id === action.agent.id ? action.agent : a
+            a.id === action.agent.id ? migrateAgent(action.agent) : a
           ),
         },
       };
@@ -285,8 +293,84 @@ export function reducer(state: AppState, action: AppAction): AppState {
         },
       };
 
+    case 'ADD_AGENT_TASK':
+      return {
+        ...state,
+        ai: {
+          ...state.ai,
+          agents: state.ai.agents.map(a =>
+            a.id === action.agentId
+              ? { ...a, tasks: [...a.tasks, action.task] }
+              : a
+          ),
+        },
+      };
+
+    case 'TOGGLE_AGENT_TASK':
+      return {
+        ...state,
+        ai: {
+          ...state.ai,
+          agents: state.ai.agents.map(a =>
+            a.id === action.agentId
+              ? {
+                  ...a,
+                  tasks: a.tasks.map(t =>
+                    t.id === action.taskId ? { ...t, done: !t.done } : t
+                  ),
+                }
+              : a
+          ),
+        },
+      };
+
+    case 'DELETE_AGENT_TASK':
+      return {
+        ...state,
+        ai: {
+          ...state.ai,
+          agents: state.ai.agents.map(a =>
+            a.id === action.agentId
+              ? { ...a, tasks: a.tasks.filter(t => t.id !== action.taskId) }
+              : a
+          ),
+        },
+      };
+
+    case 'ADD_AGENT_LOG':
+      return {
+        ...state,
+        ai: {
+          ...state.ai,
+          agents: state.ai.agents.map(a =>
+            a.id === action.agentId
+              ? { ...a, logs: [...a.logs, action.entry] }
+              : a
+          ),
+        },
+      };
+
+    case 'DELETE_AGENT_LOG':
+      return {
+        ...state,
+        ai: {
+          ...state.ai,
+          agents: state.ai.agents.map(a =>
+            a.id === action.agentId
+              ? { ...a, logs: a.logs.filter(l => l.id !== action.entryId) }
+              : a
+          ),
+        },
+      };
+
     case 'LOAD_STATE':
-      return action.state;
+      return {
+        ...action.state,
+        ai: {
+          ...action.state.ai,
+          agents: action.state.ai.agents.map(migrateAgent),
+        },
+      };
 
     case 'RESET_STATE':
       return DEFAULT_STATE;

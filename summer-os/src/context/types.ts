@@ -62,6 +62,18 @@ export interface StudySession {
 
 export type AgentStatus = 'Active' | 'Paused' | 'Testing' | 'Deployed';
 
+export interface AgentTask {
+  id: string;
+  text: string;
+  done: boolean;
+}
+
+export interface AgentLogEntry {
+  id: string;
+  ts: string;
+  text: string;
+}
+
 export interface Agent {
   id: string;
   name: string;
@@ -70,6 +82,8 @@ export interface Agent {
   status: AgentStatus;
   notes: string;
   lastRun: string;
+  tasks: AgentTask[];
+  logs: AgentLogEntry[];
 }
 
 export interface Observation {
@@ -129,6 +143,11 @@ export type AppAction =
   | { type: 'ADD_AGENT'; agent: Agent }
   | { type: 'UPDATE_AGENT'; agent: Agent }
   | { type: 'DELETE_AGENT'; id: string }
+  | { type: 'ADD_AGENT_TASK'; agentId: string; task: AgentTask }
+  | { type: 'TOGGLE_AGENT_TASK'; agentId: string; taskId: string }
+  | { type: 'DELETE_AGENT_TASK'; agentId: string; taskId: string }
+  | { type: 'ADD_AGENT_LOG'; agentId: string; entry: AgentLogEntry }
+  | { type: 'DELETE_AGENT_LOG'; agentId: string; entryId: string }
   | { type: 'LOG_OBSERVATION'; observation: Observation }
   | { type: 'DELETE_OBSERVATION'; id: string }
   | { type: 'UPDATE_DAILY_NOTE'; date: string; text: string }
