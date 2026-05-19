@@ -10,7 +10,7 @@
   body {
     background-color: #0f1117;
     color: #f1f5f9;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    font-family: 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
     -webkit-font-smoothing: antialiased;
   }
 
@@ -41,4 +41,53 @@
   .transition-default {
     transition: all 150ms cubic-bezier(0.16, 1, 0.3, 1);
   }
+}
+
+/* ── Section transitions ─────────────────────────────── */
+@keyframes section-enter {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.section-enter {
+  animation: section-enter 250ms cubic-bezier(0.25, 1, 0.5, 1) both;
+}
+
+/* ── Agent card glow loops ───────────────────────────── */
+@keyframes glow-breathe-ai {
+  0%, 100% {
+    box-shadow: 0 0 8px rgba(139, 92, 246, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 28px rgba(139, 92, 246, 0.65);
+  }
+}
+
+@keyframes glow-breathe-testing {
+  0%, 100% {
+    box-shadow: 0 0 8px rgba(245, 158, 11, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 28px rgba(245, 158, 11, 0.65);
+  }
+}
+
+/* ── Blinking cursor for active agent logs ───────────── */
+@keyframes blink-cursor {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+/* ── Hover lift utility ──────────────────────────────── */
+.hover-lift {
+  transition: transform 150ms cubic-bezier(0.25, 1, 0.5, 1);
+}
+.hover-lift:hover {
+  transform: translateY(-2px);
 }
