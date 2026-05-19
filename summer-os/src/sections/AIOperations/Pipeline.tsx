@@ -36,8 +36,12 @@ export function Pipeline() {
                   return (
                     <div
                       key={v.id}
-                      className="bg-card rounded p-3 cursor-default group transition-transform duration-150 hover:-translate-y-0.5"
-                      style={{ border: `1px solid ${STAGE_COLORS[stage]}30` }}
+                      className="rounded p-3 hover-lift cursor-default group transition-transform duration-150 hover:-translate-y-0.5"
+                      style={{
+                        backgroundColor: 'rgba(139, 92, 246, 0.12)',
+                        borderTop: '3px solid #8b5cf6',
+                        border: `1px solid ${STAGE_COLORS[stage]}30`
+                      }}
                     >
                       <p className="text-light text-sm font-medium">{v.name}</p>
                       <p className="text-dim text-xs mt-0.5">{v.category}</p>
