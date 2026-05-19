@@ -23,6 +23,7 @@ export default {
       },
       fontFamily: {
         sans: [
+          'Geist',
           '-apple-system',
           'BlinkMacSystemFont',
           '"Segoe UI"',
