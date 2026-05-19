@@ -2,6 +2,9 @@ import { useApp } from '../../hooks/useApp';
 import { useShowToast } from '../../App';
 import { getWeekKey } from '../../utils/dates';
 import type { WorkoutStatus } from '../../context/types';
+import { AgentRing } from '../../components/AgentRing';
+import { useAnimeCountUp } from '../../hooks/useAnimeCountUp';
+import { hexToRgba } from '../../utils/colors';
 
 const WORKOUT_SPLIT: Record<string, { name: string; emoji: string }> = {
   Monday: { name: 'Chest — Strength (Low Volume)', emoji: '🏋️' },
@@ -14,6 +17,40 @@ const WORKOUT_SPLIT: Record<string, { name: string; emoji: string }> = {
 };
 
 const WEEK_DAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+const SHORT = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+
+function WorkoutWeekGrid({ weekLog }: { weekLog: Record<string, string | null> }) {
+  return (
+    <div className="grid grid-cols-7 gap-1.5">
+      {WEEK_DAYS.map((day, i) => {
+        const status = weekLog[day];
+        return (
+          <div key={day} className="flex flex-col items-center gap-1">
+            <span className="text-xs font-medium" style={{ color: '#64748b' }}>{SHORT[i]}</span>
+            <div
+              className="w-full rounded"
+              style={{
+                height: 36,
+                background:
+                  status === 'done'
+                    ? hexToRgba('#10b981', 0.7)
+                    : status === 'missed'
+                    ? 'rgba(239, 68, 68, 0.3)'
+                    : 'rgba(255,255,255,0.04)',
+                border:
+                  status === 'done'
+                    ? '1px solid #10b981'
+                    : status === 'missed'
+                    ? '1px solid rgba(239,68,68,0.4)'
+                    : '1px solid rgba(255,255,255,0.07)',
+              }}
+            />
+          </div>
+        );
+      })}
+    </div>
+  );
+}
 
 function nextStatus(current: WorkoutStatus): WorkoutStatus {
   if (current === null) return 'done';
@@ -29,7 +66,9 @@ export function GymTracker() {
   const weekLog = state.health.weekLog[weekKey] ?? {};
 
   const doneCount = Object.values(weekLog).filter(s => s === 'done').length;
+  const workoutsThisWeek = doneCount;
   const completionPct = Math.round((doneCount / 6) * 100);
+  const workoutCount = useAnimeCountUp(workoutsThisWeek);
 
   const allWeekKeys = Object.keys(state.health.weekLog).sort().reverse();
 
@@ -44,6 +83,19 @@ export function GymTracker() {
 
   return (
     <div className="space-y-6">
+      <div className="bg-card rounded p-5" style={{ borderTop: '3px solid #10b981' }}>
+        <div className="flex items-center justify-between mb-4">
+          <p className="text-dim text-xs uppercase tracking-widest font-medium">This Week</p>
+          <div className="flex items-center gap-3">
+            <AgentRing percent={Math.round((workoutsThisWeek / 6) * 100)} color="#10b981" size={52} />
+            <span className="text-2xl font-bold" style={{ color: '#10b981', textShadow: '0 0 20px #10b981' }}>
+              {workoutCount}/6
+            </span>
+          </div>
+        </div>
+        <WorkoutWeekGrid weekLog={weekLog} />
+      </div>
+
       <div className="flex items-center gap-6">
         <div className="text-center">
           <p className="text-3xl font-bold text-health">{doneCount}</p>
