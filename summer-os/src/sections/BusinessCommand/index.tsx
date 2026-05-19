@@ -1,5 +1,6 @@
 import { useState, useMemo } from 'react';
 import { useApp } from '../../hooks/useApp';
+import { useAnimeCountUp } from '../../hooks/useAnimeCountUp';
 import { SectionHeader } from '../../components/SectionHeader';
 import { VentureManager } from './VentureManager';
 import { RevenueLog } from './RevenueLog';
@@ -24,6 +25,8 @@ export function BusinessCommand() {
       sum + v.revenue.reduce((s, r) => s + r.amount, 0), 0
     ), [state.business.ventures]);
 
+  const revenueCount = useAnimeCountUp(totalRevenue);
+
   return (
     <div>
       <SectionHeader title="Business Command" accent="#f59e0b">
@@ -31,6 +34,16 @@ export function BusinessCommand() {
           ${totalRevenue.toLocaleString()}
         </span>
       </SectionHeader>
+
+      <div className="mb-6 rounded p-6" style={{ backgroundColor: 'rgba(245,158,11,0.12)', borderTop: '3px solid #f59e0b' }}>
+        <p className="text-dim text-xs uppercase tracking-widest font-medium mb-1">Summer Revenue</p>
+        <p
+          className="text-5xl font-bold leading-none"
+          style={{ color: '#f59e0b', textShadow: '0 0 28px #f59e0b' }}
+        >
+          ${revenueCount.toLocaleString()}
+        </p>
+      </div>
 
       <div className="flex gap-1 mb-6 bg-surface rounded p-1 w-fit">
         {TABS.map(t => (

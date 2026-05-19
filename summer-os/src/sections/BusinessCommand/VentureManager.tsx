@@ -38,10 +38,15 @@ export function VentureManager() {
     showToast('Venture added');
   };
 
+  const grandTotal = state.business.ventures.reduce(
+    (sum, v) => sum + v.revenue.reduce((s, r) => s + r.amount, 0), 0
+  );
+
   return (
     <div className="space-y-4">
       {state.business.ventures.map(v => {
         const total = v.revenue.reduce((s, r) => s + r.amount, 0);
+        const proportion = grandTotal > 0 ? (total / grandTotal) * 100 : 0;
         return (
           <div key={v.id} className="bg-card rounded p-5" style={{ borderTop: `3px solid ${STAGE_COLORS[v.stage]}` }}>
             <div className="flex items-start justify-between mb-3">
@@ -93,6 +98,14 @@ export function VentureManager() {
                   {s}
                 </button>
               ))}
+            </div>
+            <div className="mt-2">
+              <div className="h-1 rounded-full" style={{ background: 'rgba(255,255,255,0.06)' }}>
+                <div
+                  className="h-full rounded-full transition-all duration-700"
+                  style={{ width: `${proportion}%`, background: '#f59e0b' }}
+                />
+              </div>
             </div>
           </div>
         );
