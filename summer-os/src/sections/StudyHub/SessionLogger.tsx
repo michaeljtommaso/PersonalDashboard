@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Trash2 } from 'lucide-react';
 import { useApp } from '../../hooks/useApp';
 import { useShowToast } from '../../App';
 import { todayStr, formatDate } from '../../utils/dates';
+import anime from 'animejs';
 
 export function SessionLogger() {
   const { state, dispatch } = useApp();
@@ -13,6 +14,21 @@ export function SessionLogger() {
     duration: '',
     notes: '',
   });
+
+  const listRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!listRef.current) return;
+    const items = listRef.current.querySelectorAll('.session-item');
+    anime({
+      targets: items,
+      opacity: [0, 1],
+      translateY: [12, 0],
+      delay: anime.stagger(60),
+      duration: 300,
+      easing: 'easeOutQuart',
+    });
+  }, []);
 
   const totalMinutes = state.academic.sessions.reduce((s, sess) => s + sess.duration, 0);
   const avgMinutes = state.academic.sessions.length > 0
@@ -95,8 +111,9 @@ export function SessionLogger() {
       {state.academic.sessions.length > 0 && (
         <div className="space-y-2">
           <p className="text-dim text-xs uppercase tracking-widest font-medium">History</p>
+          <div ref={listRef} className="space-y-2">
           {state.academic.sessions.map(s => (
-            <div key={s.id} className="flex items-center justify-between bg-card rounded px-4 py-3">
+            <div key={s.id} className="session-item flex items-center justify-between bg-card rounded px-4 py-3">
               <div>
                 <p className="text-light text-sm font-medium">{s.topicName}</p>
                 <p className="text-dim text-xs">{formatDate(s.date)}{s.notes ? ` · ${s.notes}` : ''}</p>
@@ -115,6 +132,7 @@ export function SessionLogger() {
               </div>
             </div>
           ))}
+          </div>
         </div>
       )}
     </div>

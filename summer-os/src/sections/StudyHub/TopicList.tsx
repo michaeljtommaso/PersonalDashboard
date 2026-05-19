@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useApp } from '../../hooks/useApp';
 import { useShowToast } from '../../App';
+import { AgentRing } from '../../components/AgentRing';
 
 function DifficultyDots({ level }: { level: 1 | 2 | 3 }) {
   return (
@@ -52,17 +53,13 @@ export function TopicList() {
             <div className="flex items-center gap-3 px-4 py-3">
               <button
                 onClick={() => handleToggle(topic.id, topic.name)}
-                className={`w-5 h-5 rounded flex-shrink-0 border transition-all duration-150 flex items-center justify-center ${
-                  topic.completed
-                    ? 'bg-academic border-academic'
-                    : 'border-white/20 hover:border-academic'
-                }`}
+                className="flex-shrink-0 transition-opacity duration-150 hover:opacity-70"
               >
-                {topic.completed && (
-                  <svg viewBox="0 0 12 12" className="w-3 h-3" fill="none">
-                    <path d="M2 6l3 3 5-5" stroke="#0f1117" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
-                )}
+                <AgentRing
+                  percent={topic.completed ? 100 : 0}
+                  color="#3b82f6"
+                  size={32}
+                />
               </button>
 
               <div className="flex-1 min-w-0">
