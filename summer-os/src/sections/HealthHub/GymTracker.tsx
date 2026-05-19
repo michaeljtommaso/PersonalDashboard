@@ -1,6 +1,6 @@
 import { useApp } from '../../hooks/useApp';
 import { useShowToast } from '../../App';
-import { getWeekKey, todayStr } from '../../utils/dates';
+import { getWeekKey } from '../../utils/dates';
 import type { WorkoutStatus } from '../../context/types';
 
 const WORKOUT_SPLIT: Record<string, { name: string; emoji: string }> = {

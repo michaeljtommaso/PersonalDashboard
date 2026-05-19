@@ -36,7 +36,6 @@ export function Overview() {
     ), [state.business.ventures]);
 
   const completedTopics = state.academic.topics.filter(t => t.completed).length;
-  const topicProgress = (completedTopics / 12) * 100;
 
   const priorities: string[] = [];
   if (!todayNutrition) priorities.push('Log today\'s nutrition');
