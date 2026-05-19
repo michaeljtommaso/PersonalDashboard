@@ -41,9 +41,17 @@ export function QuickCapture() {
         value={text}
         onChange={e => setText(e.target.value)}
         onKeyDown={e => { if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) handleCapture(); }}
+        onFocus={e => {
+          e.currentTarget.style.borderColor = '#06b6d4';
+          e.currentTarget.style.boxShadow = '0 0 0 2px rgba(6, 182, 212, 0.35)';
+        }}
+        onBlur={e => {
+          e.currentTarget.style.borderColor = 'rgba(255,255,255,0.1)';
+          e.currentTarget.style.boxShadow = 'none';
+        }}
         placeholder="What's on your mind? (Cmd+Enter to save)"
         rows={2}
-        className="w-full bg-surface border border-white/10 rounded text-light text-sm px-3 py-2 resize-none focus:outline-none focus:border-brain transition-colors"
+        className="w-full bg-surface border border-white/10 rounded text-light text-sm px-3 py-2 resize-none focus:outline-none transition-colors"
       />
       <div className="flex items-center gap-2 flex-wrap">
         {TAGS.map(t => (

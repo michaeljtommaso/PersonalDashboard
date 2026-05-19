@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Trash2 } from 'lucide-react';
 import { useApp } from '../../hooks/useApp';
 import { useShowToast } from '../../App';
 import type { NoteTag } from '../../context/types';
+import anime from 'animejs';
 
 const TAG_COLORS: Record<NoteTag, string> = {
   lesson: '#3b82f6',
@@ -17,6 +18,20 @@ export function Timeline() {
   const showToast = useShowToast();
   const [search, setSearch] = useState('');
   const [filterTag, setFilterTag] = useState<NoteTag | 'all'>('all');
+  const notesRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!notesRef.current) return;
+    const items = notesRef.current.querySelectorAll('.note-item');
+    anime({
+      targets: items,
+      opacity: [0, 1],
+      translateX: [-16, 0],
+      delay: anime.stagger(55),
+      duration: 280,
+      easing: 'easeOutQuart',
+    });
+  }, []);
 
   const filtered = state.brain.notes.filter(n => {
     const matchesText = n.text.toLowerCase().includes(search.toLowerCase());
@@ -62,9 +77,9 @@ export function Timeline() {
         </div>
       </div>
 
-      <div className="space-y-2">
+      <div ref={notesRef} className="space-y-2">
         {filtered.map(note => (
-          <div key={note.id} className="bg-card rounded px-4 py-3 flex gap-3">
+          <div key={note.id} className="note-item bg-card rounded px-4 py-3 flex gap-3">
             <div
               className="w-1 rounded-full flex-shrink-0 mt-1"
               style={{ backgroundColor: TAG_COLORS[note.tag], minHeight: 16 }}
