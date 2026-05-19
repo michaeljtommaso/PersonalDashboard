@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import anime from 'animejs';
+import { animate } from 'animejs';
 
 interface AgentRingProps {
   percent: number;
@@ -22,8 +22,7 @@ export function AgentRing({ percent, color, size = 120, pulse = false, pulseClas
     el.style.strokeDasharray = String(circumference);
     el.style.strokeDashoffset = String(circumference);
 
-    anime({
-      targets: el,
+    animate(el, {
       strokeDashoffset: [circumference, targetOffset],
       duration: 800,
       easing: 'easeOutQuart',

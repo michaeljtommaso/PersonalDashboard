@@ -3,7 +3,7 @@ import { Trash2 } from 'lucide-react';
 import { useApp } from '../../hooks/useApp';
 import { useShowToast } from '../../App';
 import { todayStr, formatDate } from '../../utils/dates';
-import anime from 'animejs';
+import { animate, stagger } from 'animejs';
 
 export function SessionLogger() {
   const { state, dispatch } = useApp();
@@ -20,11 +20,10 @@ export function SessionLogger() {
   useEffect(() => {
     if (!listRef.current) return;
     const items = listRef.current.querySelectorAll('.session-item');
-    anime({
-      targets: items,
+    animate(items, {
       opacity: [0, 1],
       translateY: [12, 0],
-      delay: anime.stagger(60),
+      delay: stagger(60),
       duration: 300,
       easing: 'easeOutQuart',
     });

@@ -3,7 +3,7 @@ import { Trash2 } from 'lucide-react';
 import { useApp } from '../../hooks/useApp';
 import { useShowToast } from '../../App';
 import type { NoteTag } from '../../context/types';
-import anime from 'animejs';
+import { animate, stagger } from 'animejs';
 
 const TAG_COLORS: Record<NoteTag, string> = {
   lesson: '#3b82f6',
@@ -23,11 +23,10 @@ export function Timeline() {
   useEffect(() => {
     if (!notesRef.current) return;
     const items = notesRef.current.querySelectorAll('.note-item');
-    anime({
-      targets: items,
+    animate(items, {
       opacity: [0, 1],
       translateX: [-16, 0],
-      delay: anime.stagger(55),
+      delay: stagger(55),
       duration: 280,
       easing: 'easeOutQuart',
     });

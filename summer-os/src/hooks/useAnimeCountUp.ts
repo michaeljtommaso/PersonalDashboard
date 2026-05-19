@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import anime from 'animejs';
+import { animate } from 'animejs';
 
 export function useAnimeCountUp(target: number, duration = 900): number {
   const [displayed, setDisplayed] = useState(0);
@@ -9,15 +9,14 @@ export function useAnimeCountUp(target: number, duration = 900): number {
     obj.current.val = 0;
     setDisplayed(0);
 
-    const anim = anime({
-      targets: obj.current,
+    const anim = animate(obj.current, {
       val: target,
       duration,
       easing: 'easeOutQuart',
       onUpdate: () => {
         setDisplayed(Math.round(obj.current.val));
       },
-      complete: () => {
+      onComplete: () => {
         setDisplayed(target);
       },
     });

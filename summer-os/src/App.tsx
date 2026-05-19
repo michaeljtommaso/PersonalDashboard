@@ -176,7 +176,7 @@ function AppInner() {
 
   const renderSection = () => {
     switch (activeSection) {
-      case 'overview':  return <Overview onNavigate={setActiveSection} />;
+      case 'overview':  return <Overview onNavigate={(s) => setActiveSection(s as Section)} />;
       case 'health':    return <HealthHub />;
       case 'business':  return <BusinessCommand />;
       case 'study':     return <StudyHub />;

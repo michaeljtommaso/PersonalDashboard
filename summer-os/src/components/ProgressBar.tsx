@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import anime from 'animejs';
+import { animate } from 'animejs';
 
 interface ProgressBarProps {
   value: number;
@@ -17,8 +17,7 @@ export function ProgressBar({ value, max, color, height = 8, showLabel = false }
     const el = fillRef.current;
     if (!el) return;
     el.style.width = '0%';
-    anime({
-      targets: el,
+    animate(el, {
       width: `${pct}%`,
       duration: 600,
       easing: 'easeOutQuart',

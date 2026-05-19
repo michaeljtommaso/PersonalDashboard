@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { Trash2 } from 'lucide-react';
-import anime from 'animejs';
+import { animate } from 'animejs';
 import type { AgentLogEntry } from '../context/types';
 
 interface ActivityLogProps {
@@ -19,8 +19,7 @@ export function ActivityLog({ entries, isActive, onAdd, onDelete, accentColor }:
 
   useEffect(() => {
     if (entries.length > prevCountRef.current && lastEntryRef.current) {
-      anime({
-        targets: lastEntryRef.current,
+      animate(lastEntryRef.current, {
         opacity: [0, 1],
         translateY: [10, 0],
         duration: 200,

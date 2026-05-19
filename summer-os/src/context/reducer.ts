@@ -71,9 +71,9 @@ export const DEFAULT_STATE: AppState = {
 
 function migrateAgent(agent: Agent): Agent {
   return {
-    tasks: [],
-    logs: [],
     ...agent,
+    tasks: agent.tasks ?? [],
+    logs: agent.logs ?? [],
   };
 }
 
