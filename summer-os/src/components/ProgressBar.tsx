@@ -1,3 +1,6 @@
+import { useEffect, useRef } from 'react';
+import anime from 'animejs';
+
 interface ProgressBarProps {
   value: number;
   max: number;
@@ -7,7 +10,21 @@ interface ProgressBarProps {
 }
 
 export function ProgressBar({ value, max, color, height = 8, showLabel = false }: ProgressBarProps) {
+  const fillRef = useRef<HTMLDivElement>(null);
   const pct = max > 0 ? Math.min(100, (value / max) * 100) : 0;
+
+  useEffect(() => {
+    const el = fillRef.current;
+    if (!el) return;
+    el.style.width = '0%';
+    anime({
+      targets: el,
+      width: `${pct}%`,
+      duration: 600,
+      easing: 'easeOutQuart',
+      delay: 150,
+    });
+  }, [pct]);
 
   return (
     <div className="flex items-center gap-2">
@@ -16,8 +33,9 @@ export function ProgressBar({ value, max, color, height = 8, showLabel = false }
         style={{ height }}
       >
         <div
-          className="h-full rounded-full transition-all duration-300 ease-out"
-          style={{ width: `${pct}%`, backgroundColor: color }}
+          ref={fillRef}
+          className="h-full rounded-full"
+          style={{ width: '0%', backgroundColor: color }}
         />
       </div>
       {showLabel && (
